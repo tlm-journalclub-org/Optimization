@@ -1,6 +1,6 @@
 # %% [markdown]
 # # Simulated Annealing per il TSP
-#
+# 
 # ### Problema: Travelling Salesman Problem (TSP)
 #
 # Il **Travelling Salesman Problem (TSP)** è uno dei problemi NP-hard più famosi:
@@ -261,7 +261,7 @@ def simulated_annealing_classic(dist_matrix, n_iter=1000, T_start=2.0, T_end=0.0
 
 # %%
 best_tour_classic, best_cost_classic, history_classic, history_current_classic = simulated_annealing_classic(
-    dist_matrix, n_iter=500, T_start=5.0, T_end=0.01
+    dist_matrix, n_iter=500, T_start=10.0, T_end=0.01
 )
 
 print(f"Miglior tour classico: {best_tour_classic}")

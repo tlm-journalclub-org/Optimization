@@ -51,7 +51,7 @@ import math
 np.random.seed(42)
 random.seed(42)
 
-N_ASSETS = 15
+N_ASSETS = 8
 RISK_FREE_RATE = 0.035  # 2% tasso privo di rischio annualizzato
 
 # Rendimenti attesi casuali, ordinati crescenti (4%–20%)
@@ -246,7 +246,7 @@ def simulated_annealing_portfolio(n_iter=2000, T_start=1.0, T_end=0.001):
 # random.seed(42)
 
 best_weights_sa, best_sharpe_sa, history_sa_best, history_sa_current = (
-    simulated_annealing_portfolio(n_iter=100000, T_start=10.0, T_end=0.001)
+    simulated_annealing_portfolio(n_iter=1000, T_start=10.0, T_end=0.001)
 )
 
 print(f"Miglior Sharpe Ratio (SA):  {best_sharpe_sa:.4f}")
@@ -290,9 +290,9 @@ plt.show()
 
 # %%
 INITIAL_INVESTMENT = 10_000  # euro
-N_YEARS = 5
+N_YEARS = 1
 N_TRADING_DAYS = N_YEARS * 252
-N_SIMULATIONS = 1000
+N_SIMULATIONS = 100
 
 
 def simulate_gbm(annual_return, annual_vol, n_days, n_sims, initial_value):
@@ -410,7 +410,6 @@ plt.show()
 
 # %%
 from matplotlib.animation import FuncAnimation, FFMpegWriter, PillowWriter
-
 
 def simulated_annealing_portfolio_with_snapshots(
     n_iter=2000, T_start=1.0, T_end=0.001, snapshot_every=20
@@ -536,3 +535,17 @@ def create_portfolio_video(snapshots, output_path='sa_portfolio.mp4', fps=15):
     return anim
 
 # %%
+
+print("Esecuzione SA con raccolta snapshot...")
+best_tour_video, best_cost_video, history_best_video, history_current_video, snapshots_video = (
+    simulated_annealing_portfolio_with_snapshots(
+        n_iter=600, T_start=5.0, T_end=0.01, snapshot_every=10
+    )
+)
+print(f"Snapshot raccolti: {len(snapshots_video)}")
+print(f"Miglior distanza: {best_cost_video:.3f}")
+
+create_portfolio_video(
+    snapshots_video,
+    output_path='sa_portfolio.mp4', fps=2
+)
